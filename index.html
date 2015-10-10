@@ -1,43 +1,179 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Soda-leaflet by christophertam</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Soda-leaflet</h1>
-      <h2 class="project-tagline"></h2>
-      <a href="https://github.com/christophertam/soda-leaflet" class="btn">View on GitHub</a>
-      <a href="https://github.com/christophertam/soda-leaflet/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/christophertam/soda-leaflet/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leaflet SODA API Demo</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
 
-    <section class="main-content">
-      <h1>
-<a id="simple-leaflet-and-soda-api-example" class="anchor" href="#simple-leaflet-and-soda-api-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simple Leaflet and SODA API Example</h1>
+</head>
+<body>
 
-<p>A simple web map that pulls data from the SODA API and creates markers on the map with custom icons and popups.</p>
+  <div id="map"></div>
+  <div id="infoBox" class="box">
 
-<p><a href="http://chriswhong.github.io/soda-leaflet/">View it now on Github Pages</a></p>
+    <div id="infoBoxTitle">Indiana Parks</span>
+    </div>
 
-<p>Used to: The map loads at a fixed location and retreives the past 7 days of 311 complaints for the current view.  </p>
 
-<p>Built using Indiana DNR park data</p>
+  </div>
+        <!--<div id="FilterBox" class = "box">  
+          <fieldset>
+          <legend>Filter</legend>
+       
+              <label>Agency</label>
+             <select id = "nycAgency">
+                <option value = "All">All</option>
+                <option value = "DOT">DOT</option>
+                <option value = "TLC">TLC</option>
+                <option value = "DPR">DPR</option>
+                <option value = "DOB">DOB</option>
+                <option value = "NYPD">NYPD</option>
+                <option value = "DSNY">DSNY</option>
+                <option value = "FDNY">FDNY</option>
+                <option value = "DOE">DOE</option>
+                <option value = "DEP">DEP</option>
+                <option value = "DOF">DOF</option>
+                <option value = "DCA">DCA</option>
+                <option value = "DOHMH">DOHMH</option>
+                <option value = "HPD">HPD</option>
+             </select>
+              <br />
+              <label>Complaint Type</label>
+                <input id="conditions_list" name="conditions_list" type="text" list="conditions" />
+                <datalist  id="conditions">
+                    <option value="All"></option>
+                    <option value="Street Condition"></option>
+                    <option value="Noise - Commercial"></option>
+                    <option value="Benefit Card Replacement"></option>
+                    <option value="Opinion for the Mayor"></option>
+                    <option value="Consumer Complaint"></option>
+                    <option value="Smoking"></option>
+                    <option value="Blocked Driveway"></option>
+                    <option value="Illegal Parking"></option>
+                    <option value="Noise - Street/Sidewalk"></option>
+                    <option value="Noise - Park"></option>
+                    <option value="Taxi Complaint"></option>
+                    <option value="Street Light Condition"></option>
+                    <option value="Food Establishment"></option>
+                    <option value="Rodent"></option>
+                    <option value="Noise - Vehicle"></option>
+                    <option value="Animal Abuse"></option>
+                    <option value="WATER LEAK"></option>
+                    <option value="PAINT/PLASTER"></option>
+                    <option value="HEAT/HOT WATER"></option>
+                    <option value="FLOORING/STAIRS"></option>
+                    <option value="DOOR/WINDOW"></option>
+                    <option value="UNSANITARY CONDITION"></option>
+                    <option value="GENERAL"></option>
+                    <option value="PLUMBING"></option>
+                    <option value="Noise"></option>
+                    <option value="Water System"></option>
+                    <option value="Sanitation Condition"></option>
+                    <option value="Traffic Signal Condition"></option>
+                    <option value="Curb Condition"></option>
+                    <option value="Dirty Conditions"></option>
+                    <option value="Taxi Report"></option>
+                    <option value="For Hire Vehicle Complaint"></option>
+                    <option value="Agency Issues"></option>
+                    <option value="Broken Muni Meter"></option>
+                    <option value="Construction"></option>
+                    <option value="Indoor Air Quality"></option>
+                    <option value="Sewer"></option>
+                    <option value="Homeless Encampment"></option>
+                    <option value="Maintenance or Facility"></option>
+                    <option value="Other Enforcement"></option>
+                    <option value="Unsanitary Animal Pvt Property"></option>
+                    <option value="Sidewalk Condition"></option>
+                    <option value="Traffic"></option>
+                    <option value="Street Sign - Damaged"></option>
+                    <option value="Derelict Bicycle"></option>
+                    <option value="Derelict Vehicle"></option>
+                    <option value="Derelict Vehicles"></option>
+                    <option value="DPR Internal"></option>
+                    <option value="Industrial Waste"></option>
+                    <option value="Illegal Tree Damage"></option>
+                    <option value="Food Poisoning"></option>
+                    <option value="Missed Collection (All Materials)"></option>
+                    <option value="DOT Literature Request"></option>
+                    <option value="Unsanitary Animal Facility"></option>
+                    <option value="Public Payphone Complaint"></option>
+                    <option value="Air Quality"></option>
+                    <option value="SCRIE"></option>
+                    <option value="DOF Literature Request"></option>
+                    <option value="Homeless Person Assistance"></option>
+                    <option value="Drinking Water"></option>
+                    <option value="DCA / DOH New License Application Request"></option>
+                    <option value="Building/Use"></option>
+                    <option value="Hazardous Materials"></option>
+                    <option value="Special Projects Inspection Team (SPIT)"></option>
+                    <option value="Indoor Sewage"></option>
+                    <option value="Graffiti"></option>
+                    <option value="Elevator"></option>
+                    <option value="General Construction/Plumbing"></option>
+                    <option value="Overgrown Tree/Branches"></option>
+                    <option value="Street Sign - Missing"></option>
+                    <option value="Litter Basket / Request"></option>
+                    <option value="Disorderly Youth"></option>
+                    <option value="Lead"></option>
+                    <option value="Taxi Compliment"></option>
+                    <option value="Damaged Tree"></option>
+                    <option value="Ferry Inquiry"></option>
+                    <option value="Highway Sign - Damaged"></option>
+                    <option value="Water Conservation"></option>
+                    <option value="Root/Sewer/Sidewalk Condition"></option>
+                    <option value="Fire Safety Director - F58"></option>
+                    <option value="Broken Parking Meter"></option>
+                    <option value="DOF Parking - Tax Exemption"></option>
+                    <option value="Unsanitary Pigeon Condition"></option>
+                    <option value="Noise - Helicopter"></option>
+                    <option value="Asbestos"></option>
+                    <option value="Unleashed Dog"></option>
+                    <option value="DOF Property - Reduction Issue"></option>
+                    <option value="Street Sign - Dangling"></option>
+                    <option value="DCA Literature Request"></option>
+                    <option value="Dead Tree"></option>
+                    <option value="Non-Residential Heat"></option>
+                    <option value="Request for Information"></option>
+                    <option value="Highway Condition"></option>
+                    <option value="Emergency Response Team (ERT)"></option>
+                    <option value="Vending"></option>
+                    <option value="BEST/Site Safety"></option>
+                    <option value="Bus Stop Shelter Placement"></option>
+                    <option value="School Maintenance"></option>
+                    <option value="Water Quality"></option>
+                    <option value="Sweeping/Missed"></option>
+                    <option value="Sweeping/Inadequate"></option>
+                    <option value="Vacant Lot"></option>
+                    <option value="Electrical"></option>
+                    <option value="Recycling Enforcement"></option>
+                    <option value="Misc. Comments"></option>
+                    <option value="Special Enforcement"></option>
+                    <option value="Bridge Condition"></option>
+                    <option value="Overflowing Litter Baskets"></option>
+                    <option value="EAP Inspection - F59"></option>
+                    <option value="Animal in a Park"></option>
+                    <option value="Bike Rack Condition"></option>
+                    <option value="Senior Center Complaint"></option>
+                    <option value="ELECTRIC"></option>
+                    <option value="SAFETY"></option>
+                    <option value="APPLIANCE"></option>
+                    <option value="OUTSIDE BUILDING"></option>
+                    <option value="Found Property"></option>
+                    <option value="Collection Truck Noise"></option>
+                    <option value="Compliment"></option>
+                </datalist>         
+       </fieldset>
+     </div> -->
+  <div id = "blurbBox" class = "box">
+     <p>This example pulls parks from the DNR dataset and maps them.  <a href = "https://github.com/marks/soda-leaflet">Code on Github</a></p>
+  </div>
+  <div id="getData">
+    <a href="https://socratadata.iot.in.gov/Government/DNR-Recreation-Locations/ahay-uukm"><img src="https://raw.githubusercontent.com/betanyc/getDataButton/master/png/110x32.png"></a>
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/christophertam/soda-leaflet">Soda-leaflet</a> is maintained by <a href="https://github.com/christophertam">christophertam</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
-    </section>
-
-  
-  </body>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>  
+  <script src="js/script.js"></script> 
+</body>
 </html>
