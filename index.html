@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Leaflet SODA API Demo</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
 
 </head>
 <body>
@@ -12,16 +12,16 @@
   <div id="map"></div>
   <div id="infoBox" class="box">
 
-    <div id="infoBoxTitle">311 Requests Since <span id='startDate'></span>
+    <div id="infoBoxTitle">Indiana Parks</span>
     </div>
 
 
   </div>
-        <div id="FilterBox" class = "box">  
+        <!--<div id="FilterBox" class = "box">  
           <fieldset>
           <legend>Filter</legend>
        
-             <label>Agency</label>
+              <label>Agency</label>
              <select id = "nycAgency">
                 <option value = "All">All</option>
                 <option value = "DOT">DOT</option>
@@ -164,16 +164,16 @@
                     <option value="Compliment"></option>
                 </datalist>         
        </fieldset>
-    </div>
+     </div> -->
   <div id = "blurbBox" class = "box">
-     <p>This example pulls the last 7 days of 311 complaints for the current map view from NYC Open Data using the SODA API.  <a href = "https://github.com/chriswhong/soda-leaflet">Code on Github</a></p>
+     <p>This example pulls parks from the DNR dataset and maps them.  <a href = "https://github.com/marks/soda-leaflet">Code on Github</a></p>
   </div>
   <div id="getData">
-    <a href="https://nycopendata.socrata.com/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9"><img src="https://raw.githubusercontent.com/betanyc/getDataButton/master/png/110x32.png"></a>
+    <a href="https://socratadata.iot.in.gov/Government/DNR-Recreation-Locations/ahay-uukm"><img src="https://raw.githubusercontent.com/betanyc/getDataButton/master/png/110x32.png"></a>
 
   </div>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>  
   <script src="js/script.js"></script> 
 </body>
 </html>

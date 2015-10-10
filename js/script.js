@@ -6,7 +6,7 @@ $(document).ready(function () {
         zoomControl: false,
         scrollWheelZoom: false
     })
-	.setView([40.705008, -73.995581], 15);
+	.setView([39.7910, -86.1480], 6);
 
     var markers = new L.FeatureGroup();
 
@@ -32,19 +32,19 @@ $(document).ready(function () {
     });
 
     //define agency icons based on the base icon
-    var tlcIcon = new baseIcon({ iconUrl: 'img/taxi.png' });
-    var dotIcon = new baseIcon({ iconUrl: 'img/dot.png' });
-    var parksIcon = new baseIcon({ iconUrl: 'img/parks.png' });
-    var buildingsIcon = new baseIcon({ iconUrl: 'img/buildings.png' });
-    var nypdIcon = new baseIcon({ iconUrl: 'img/nypd.png' });
-    var dsnyIcon = new baseIcon({ iconUrl: 'img/dsny.png' });
-    var fdnyIcon = new baseIcon({ iconUrl: 'img/fdny.png' });
-    var doeIcon = new baseIcon({ iconUrl: 'img/doe.png' });
-    var depIcon = new baseIcon({ iconUrl: 'img/dep.png' });
-    var dofIcon = new baseIcon({ iconUrl: 'img/dof.png' });
-    var dcaIcon = new baseIcon({ iconUrl: 'img/dca.png' });
-    var dohmhIcon = new baseIcon({ iconUrl: 'img/dohmh.png' });
-    var hpdIcon = new baseIcon({ iconUrl: 'img/hpd.png' });
+    // var tlcIcon = new baseIcon({ iconUrl: 'img/taxi.png' });
+    // var dotIcon = new baseIcon({ iconUrl: 'img/dot.png' });
+    // var parksIcon = new baseIcon({ iconUrl: 'img/parks.png' });
+    // var buildingsIcon = new baseIcon({ iconUrl: 'img/buildings.png' });
+    // var nypdIcon = new baseIcon({ iconUrl: 'img/nypd.png' });
+    // var dsnyIcon = new baseIcon({ iconUrl: 'img/dsny.png' });
+    // var fdnyIcon = new baseIcon({ iconUrl: 'img/fdny.png' });
+    // var doeIcon = new baseIcon({ iconUrl: 'img/doe.png' });
+    // var depIcon = new baseIcon({ iconUrl: 'img/dep.png' });
+    // var dofIcon = new baseIcon({ iconUrl: 'img/dof.png' });
+    // var dcaIcon = new baseIcon({ iconUrl: 'img/dca.png' });
+    // var dohmhIcon = new baseIcon({ iconUrl: 'img/dohmh.png' });
+    // var hpdIcon = new baseIcon({ iconUrl: 'img/hpd.png' });
 
 
     function getData() {
@@ -77,78 +77,41 @@ $(document).ready(function () {
         $.getJSON(constructQuery(sevenDaysAgo, sodaQueryBox), function (data) {
 
                 console.log(data)
-			    //iterate over each 311 complaint, add a marker to the map
+			    //iterate over each row, add a marker to the map
 			    for (var i = 0; i < data.length; i++) {
 
 			        var marker = data[i];
-			        var icon = getIcon(marker);
+			        var icon = new L.Icon.Default();
+                    if(marker.location_1){
 
-			        var markerItem = L.marker([marker.location.latitude, marker.location.longitude], { icon: icon });
-			        markerItem.bindPopup(
-							'<h4>' + marker.complaint_type + '</h4>'
-							+ (new Date(marker.created_date)).toDateString()
-							+ ((marker.incident_address != null) ? '<br/>' + marker.incident_address : '')
-						);
-			        markers.addLayer(markerItem);
+                        var markerItem = L.marker([marker.location_1.coordinates[1], marker.location_1.coordinates[0]], { icon: icon });
+                        markerItem.bindPopup(
+                                '<h4>' + marker.site + '</h4>'
+                            );
+                        markers.addLayer(markerItem);
+
+                    }
 			    }
-            //.addTo(map);
 			    map.addLayer(markers);
 
 			})
     }
 
     function constructQuery(sevenDaysAgo, sodaQueryBox) {
-        var originalstr = "https://data.cityofnewyork.us/resource/erm2-nwe9.json?$select=location,closed_date,complaint_type,street_name,created_date,status,unique_key,agency_name,due_date,descriptor,location_type,agency,incident_address&$where=created_date>'"
-			+ sevenDaysAgo
-			+ "' AND within_box(location,"
-			+ sodaQueryBox
-			+ ")&$order=created_date desc"
+        var originalstr = "https://socratadata.iot.in.gov/resource/6v98-qjgv.json?"
 
         var agency = $( "#nycAgency" ).val();
         var conditiion = $("#conditions_list").val();
-        if (agency.length != 0 && agency != "All") {
-            originalstr = originalstr + "&agency=" + agency;
-        }
-        if (conditiion.length != 0 && conditiion != "All") {
-            originalstr = originalstr + "&complaint_type=" + conditiion;
-        }
+        // if (agency.length != 0 && agency != "All") {
+        //     originalstr = originalstr + "&agency=" + agency;
+        // }
+        // if (conditiion.length != 0 && conditiion != "All") {
+        //     originalstr = originalstr + "&complaint_type=" + conditiion;
+        // }
 
         console.log(originalstr);
 
         return originalstr;
-    }
-    function getIcon(thisMarker) {
-
-        switch (thisMarker.agency) {
-            case 'TLC':
-                return tlcIcon;
-            case 'DOT':
-                return dotIcon;
-            case 'DPR':
-                return parksIcon;
-            case 'DOB':
-                return buildingsIcon;
-            case 'NYPD':
-                return nypdIcon;
-            case 'DSNY':
-                return dsnyIcon;
-            case 'FDNY':
-                return fdnyIcon;
-            case 'DOE':
-                return doeIcon;
-            case 'DEP':
-                return depIcon;
-            case 'DOF':
-                return dofIcon;
-            case 'DCA':
-                return dcaIcon;
-            case 'DOHMH':
-                return dohmhIcon;
-            case 'HPD':
-                return hpdIcon;
-            default:
-                return new L.Icon.Default();
-        }
     }
 
     map.on('dragend', function (e) {
